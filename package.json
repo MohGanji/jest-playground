@@ -1,0 +1,46 @@
+{
+  "name": "jest-playground",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Jest Playground for fixing issue.",
+  "author": "Cody Brunner <rockchalkwushock@icloud.com> (https://github.com/rockchalkwushock)",
+  "repository": "https://github.com/rockchalkwushock/jest-playground.git",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint api __tests__ --fix",
+    "precommit": "lint-staged",
+    "prettier": "node scripts/prettier.js write",
+    "start": "nodemon index.js",
+    "test": "jest --config jest.config.json"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint",
+      "yarn prettier",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "babel-polyfill": "~6.23.0",
+    "babel-register": "~6.24.1",
+    "body-parser": "~1.17.2",
+    "express": "~4.15.3",
+    "mongoose": "~4.9.10",
+    "nodemon": "~1.11.0"
+  },
+  "devDependencies": {
+    "babel-jest": "~20.0.3",
+    "babel-preset-env": "~1.4.0",
+    "chalk": "~1.1.3",
+    "eslint": "~3.19.0",
+    "eslint-config-equimper": "~2.0.5",
+    "eslint-config-prettier": "~2.1.0",
+    "glob": "~7.1.1",
+    "husky": "~0.13.3",
+    "jest": "~20.0.3",
+    "jest-cli": "~20.0.3",
+    "lint-staged": "~3.4.1",
+    "prettier": "~1.3.1",
+    "supertest": "~3.0.0"
+  }
+}
