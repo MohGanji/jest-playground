@@ -88,6 +88,3 @@ afterEach(async () => {
     }
   });
 ```
-
-
-You can look at  for more information.
