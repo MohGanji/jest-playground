@@ -1,4 +1,4 @@
-# Jest-Playground
+# Jest-Playground :white_check_mark: **Solved** :white_check_mark:
 
 This repository is for figuring out the issue with `jest` not terminating when the testing suite completes successfully while using `supertest` to mock the api endpoints.
 
@@ -62,3 +62,32 @@ I see the following for the two scripts in the `package.json`:
 ### `yarn test`
 
 ![yarn test](https://github.com/rockchalkwushock/jest-playground/blob/master/imgs/process-yarn-test.png)
+
+## The Solution
+
+As per discussion with [@cpojer](https://github.com/cpojer) in [#3602](https://github.com/facebook/jest/issues/3602) the issue was not enough was being done in the `afterEach()` hook. The _connection_ to `MongoDB` was remaining open because I was only _dropping connection_ to the _collection_ not the entire database.
+
+The [StackO post](http://stackoverflow.com/questions/44036189/jest-not-terminating-after-tests-complete-successfully) has been answered similarly as well.
+
+```js
+afterEach(async () => {
+    try {
+      const { todos } = mongoose.connection.collections;
+      // Collection is being dropped.
+      await todos.drop()
+      // Connection to Mongo killed.
+      await mongoose.disconnect();
+      // Server connection closed.
+      await server.close();
+    } catch (error) {
+      console.log(`
+        You did something wrong dummy!
+        ${error}
+      `);
+      throw error;
+    }
+  });
+```
+
+
+You can look at  for more information.

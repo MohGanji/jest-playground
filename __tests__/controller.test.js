@@ -34,10 +34,10 @@ describe('Looking for answers....', () => {
     try {
       const { todos } = mongoose.connection.collections;
       // Collection is being dropped.
-      await todos.drop();
-      // Definitely is closing the server.
-      // Running ps | grep node there are no processes open
-      // pertaining to the server.
+      await todos.drop()
+      // Connection to Mongo killed.
+      await mongoose.disconnect();
+      // Server connection closed.
       await server.close();
     } catch (error) {
       console.log(`
